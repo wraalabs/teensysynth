@@ -569,19 +569,67 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
   
   delay2.delay(0, (500*tempecho)+30);
 
+  // adsr encoder
+  lastDT = digitalRead(DT);
+  lastCLK = digitalRead(CLK);
+//  attachInterrupt(digitalPinToInterrupt(CLK), adsrturned, CHANGE); //CLK pin is an interrupt pin
+//  attachInterrupt(digitalPinToInterrupt(BUTTON), adsrpushed, FALLING); //PushButton pin is an interrupt pin
 
-  pinMode(PIN_A, INPUT_PULLUP);    // INPUT_PULLUP
-  pinMode(PIN_B, INPUT_PULLUP);
+  // adsr take 2
+//  lastA = currentA = digitalRead(BA);
+ // attachInterrupt(digitalPinToInterrupt(BA), myencfunction2, CHANGE);
+ // attachInterrupt(digitalPinToInterrupt(BB), myencfunction2, CHANGE);
 
-  // But not for the push switch
-  pinMode(PUSH_BTN, INPUT_PULLUP);
 
+
+    pinMode(PIN_A, INPUT_PULLUP);    // INPUT_PULLUP
+    pinMode(PIN_B, INPUT_PULLUP);
+
+    // But not for the push switch
+    pinMode(PUSH_BTN, INPUT_PULLUP);
+
+    // We need to monitor both pins, rising and falling for all states
+  //  attachInterrupt(digitalPinToInterrupt(PIN_A), rotary, CHANGE);
+ //   attachInterrupt(digitalPinToInterrupt(PIN_B), rotary, CHANGE);
 }
 
 
 
 
 void loop() {
+
+
+  while(0)
+  {
+   // newencoder();
+
+    display.clearDisplay(); 
+    display.setCursor(10, 10); 
+    
+    display.println(aaa);
+
+    display.setCursor(10, 35); 
+    display.println(bbb);
+    
+    //display.println(county);
+    display.display();
+  }
+
+
+  while(0) 
+  {
+    display.setCursor(30, 0);
+    display.invertDisplay(true);
+    display.clearDisplay();                       // draw logo
+    display.drawBitmap(
+    (display.width()  - WWIDTH ) / 2,
+    (display.height() - WHEIGHT) / 2,
+    wigglyline, WWIDTH, WHEIGHT, 1);
+    display.display();
+    display.invertDisplay(false);
+    
+  } 
+
 
   // low dropping mod DC
   if(millis() - mssave >= lfotime)
